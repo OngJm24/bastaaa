@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Merry Christmas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #1c2331;
+      --bg2: #2a3449;
+      --accent: #ff6f61;
+      --gold: #ffd700;
+      --snow: rgba(255,255,255,0.9);
+      --text: #f8fafc;
+      --soft-glow: rgba(255,215,0,0.3);
+      --message-gradient: linear-gradient(145deg, #2c3e50, #4b6cb7);
+      --message-border: rgba(255, 255, 255, 0.2);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: radial-gradient(circle at 50% 20%, var(--bg2), var(--bg1) 90%);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow: hidden;
+      text-align: center;
+      position: relative;
+      padding: 1rem;
+    }
+
+    /* Background scene */
+    .background-scene {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 50%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .hill {
+      position: absolute;
+      bottom: 0;
+      width: 300%;
+      height: 50%;
+      background: radial-gradient(ellipse at bottom, #14212b, #0d141c);
+      border-radius: 50% 50% 0 0;
+      transform: translateX(-25%);
+      z-index: 1;
+    }
+
+    .hill:nth-child(2) {
+      width: 250%;
+      height: 40%;
+      background: radial-gradient(ellipse at bottom, #1b2c3f, #16202c);
+      z-index: 2;
+    }
+
+    /* Houses */
+    .house {
+      position: absolute;
+      bottom: 5%;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateX(-50%);
+    }
+
+    .house-body {
+      width: 8vw;
+      min-width: 40px;
+      max-width: 60px;
+      height: 6vw;
+      min-height: 30px;
+      max-height: 50px;
+      background: #c1440e;
+      border: 2px solid #a83232;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .house-roof {
+      width: 0;
+      height: 0;
+      border-left: 4vw solid transparent;
+      border-right: 4vw solid transparent;
+      border-bottom: 2vw solid #8b0000;
+      position: relative;
+      bottom: 0;
+    }
+
+    .house-door {
+      width: 2vw;
+      height: 3vw;
+      min-width: 12px;
+      max-width: 16px;
+      min-height: 20px;
+      max-height: 25px;
+      background: #4b2c1f;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    .house-window {
+      width: 1.5vw;
+      height: 1.5vw;
+      min-width: 8px;
+      min-height: 8px;
+      max-width: 10px;
+      max-height: 10px;
+      background: #ffd700;
+      box-shadow: 0 0 8px #ffd700;
+      position: absolute;
+      border-radius: 2px;
+    }
+
+    .house-window.left { left: 8px; top: 10px; }
+    .house-window.right { right: 8px; top: 10px; }
+
+    /* Trees */
+    .tree {
+      position: absolute;
+      bottom: 6%;
+      width: 0;
+      height: 0;
+      border-left: 2vw solid transparent;
+      border-right: 2vw solid transparent;
+      border-bottom: 6vw solid #0a3d16;
+      z-index: 3;
+      animation: sway 4s infinite ease-in-out alternate;
+    }
+
+    @keyframes sway {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(2px); }
+      100% { transform: translateX(0); }
+    }
+
+    /* Bokeh lights */
+    .bokeh span {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.7), transparent 70%);
+      opacity: 0.3;
+      animation: floatBokeh 15s infinite ease-in-out;
+      filter: blur(4px);
+    }
+
+    @keyframes floatBokeh {
+      0%,100% { transform: translateY(0) scale(1); opacity: 0.3; }
+      50% { transform: translateY(-50px) scale(1.3); opacity: 0.6; }
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2rem, 8vw, 4rem);
+      color: var(--gold);
+      text-shadow: 0 0 10px var(--gold), 0 0 30px var(--accent);
+      margin-bottom: 0.5rem;
+      animation: glow 3s infinite alternate;
+      z-index: 5;
+      position: relative;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px var(--gold), 0 0 30px var(--accent); }
+      to { text-shadow: 0 0 25px var(--gold), 0 0 50px var(--accent); }
+    }
+
+    p.lead {
+      color: #f1f5f9;
+      margin-bottom: 2rem;
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      opacity: 0.85;
+      z-index: 5;
+      position: relative;
+    }
+
+    /* GIFT BOX */
+    .gift-box {
+      width: clamp(120px, 25vw, 160px);
+      height: clamp(120px, 25vw, 160px);
+      margin: 1.5rem auto;
+      background: linear-gradient(145deg, #b8123b, #e11d48);
+      border-radius: 18px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(255,0,70,0.5), 0 0 60px rgba(255,100,150,0.3), 0 0 120px var(--soft-glow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: floatGift 3s ease-in-out infinite;
+      z-index: 5;
+    }
+
+    .gift-box:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 35px rgba(255,0,70,0.6), 0 0 80px rgba(255,100,150,0.5), 0 0 150px var(--soft-glow);
+    }
+
+    @keyframes floatGift {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .gift-lid {
+      position: absolute;
+      top: -18%;
+      left: 0;
+      width: 100%;
+      height: 25%;
+      background: linear-gradient(135deg, #e11d48, #ff5c70);
+      border-radius: 10px 10px 4px 4px;
+      box-shadow: 0 4px 15px rgba(255,50,90,0.8);
+      transition: transform 0.6s ease;
+      z-index: 2;
+      transform-origin: center bottom;
+    }
+
+    .gift-ribbon-vertical,
+    .gift-ribbon-horizontal {
+      position: absolute;
+      background: linear-gradient(90deg, var(--gold), #fff, var(--gold));
+    }
+
+    .gift-ribbon-vertical {
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 15%;
+      height: 100%;
+      border-radius: 4px;
+    }
+
+    .gift-ribbon-horizontal {
+      top: 50%; left: 0;
+      transform: translateY(-50%);
+      width: 100%;
+      height: 15%;
+      border-radius: 4px;
+    }
+
+    .gift-box.open .gift-lid {
+      transform: translateY(-90px) rotateX(60deg);
+    }
+
+    /* MESSAGE DESIGN */
+    .message {
+      max-width: 90%;
+      margin: 2rem auto 0;
+      background: var(--message-gradient);
+      border: 2px solid var(--message-border);
+      border-radius: 25px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2), 0 0 60px rgba(255, 215, 0, 0.2) inset;
+      backdrop-filter: blur(15px);
+      padding: 2rem 2.5rem;
+      opacity: 0;
+      transform: translateY(80px) scale(0.95);
+      transition: all 1s cubic-bezier(0.17,0.67,0.83,0.67);
+      overflow-y: auto;
+      max-height: 400px;
+      font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+      line-height: 1.8;
+      color: #f8f8f8;
+      text-shadow: 0 0 3px rgba(0,0,0,0.2);
+      z-index: 5;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .message h2 {
+      color: #ffd700;
+      text-shadow: 0 0 10px #ff6f61, 0 0 20px #ffd700;
+      margin-bottom: 1rem;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+
+    .message p {
+      text-align: justify;
+      margin-bottom: 1rem;
+    }
+
+    .message-image {
+      display: block;
+      margin-top: auto; /* push image to the bottom */
+      max-width: 100%;
+      border-radius: 12px;
+      margin-top: 10px;
+    }
+
+    /* SNOW */
+    .snow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .snow i {
+      position: absolute;
+      top: -10px;
+      width: 0.5vw;
+      height: 0.5vw;
+      min-width: 2px;
+      min-height: 2px;
+      max-width: 6px;
+      max-height: 6px;
+      border-radius: 50%;
+      background: var(--snow);
+      opacity: 0.8;
+      animation: fall linear infinite;
+      box-shadow: 0 0 10px #fff;
+      filter: blur(0.9px);
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh); }
+    }
+
+    /* MEDIA QUERIES */
+    @media (max-width: 768px) {
+      .house-body { width: 12vw; height: 8vw; }
+      .house-roof { border-left: 6vw solid transparent; border-right: 6vw solid transparent; border-bottom: 4vw solid #8b0000; }
+      .tree { border-left: 3vw solid transparent; border-right: 3vw solid transparent; border-bottom: 8vw solid #0a3d16; }
+      .gift-box { width: 35vw; height: 35vw; }
+      .gift-lid { top: -20%; height: 25%; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: clamp(1.8rem, 10vw, 3rem); }
+      p.lead { font-size: clamp(0.8rem, 3vw, 1rem); }
+      .house-body { width: 15vw; height: 10vw; }
+      .house-roof { border-left: 7vw solid transparent; border-right: 7vw solid transparent; border-bottom: 5vw solid #8b0000; }
+      .tree { border-left: 4vw solid transparent; border-right: 4vw solid transparent; border-bottom: 10vw solid #0a3d16; }
+      .gift-box { width: 45vw; height: 45vw; }
+      .gift-lid { top: -25%; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Background scene -->
+  <div class="background-scene">
+    <div class="hill"></div>
+    <div class="hill"></div>
+
+    <!-- Houses -->
+    <div class="house" style="left:10%;">
+      <div class="house-roof"></div>
+      <div class="house-body">
+        <div class="house-door"></div>
+        <div class="house-window left"></div>
+        <div class="house-window right"></div>
+      </div>
+    </div>
+
+    <div class="house" style="left:40%;">
+      <div class="house-roof" style="border-bottom-color:#a83232;"></div>
+      <div class="house-body" style="background:#ff6f61;">
+        <div class="house-door"></div>
+        <div class="house-window left"></div>
+        <div class="house-window right"></div>
+      </div>
+    </div>
+
+    <div class="house" style="left:70%;">
+      <div class="house-roof" style="border-bottom-color:#7a1f1f;"></div>
+      <div class="house-body" style="background:#c1440e;">
+        <div class="house-door"></div>
+        <div class="house-window left"></div>
+        <div class="house-window right"></div>
+      </div>
+    </div>
+
+    <!-- Trees -->
+    <div class="tree" style="left:5%; border-bottom:50px solid #0a3d16;"></div>
+    <div class="tree" style="left:25%; border-bottom:60px solid #0b4d1a;"></div>
+    <div class="tree" style="left:55%; border-bottom:45px solid #0a3d16;"></div>
+    <div class="tree" style="left:80%; border-bottom:55px solid #0b4d1a;"></div>
+  </div>
+
+  <!-- Bokeh lights -->
+  <div class="bokeh">
+    <span style="width:60px;height:60px;left:10%;top:15%;animation-delay:0s;"></span>
+    <span style="width:80px;height:80px;left:70%;top:30%;animation-delay:2s;"></span>
+    <span style="width:40px;height:40px;left:50%;top:60%;animation-delay:4s;"></span>
+    <span style="width:70px;height:70px;left:30%;top:75%;animation-delay:6s;"></span>
+    <span style="width:90px;height:90px;left:85%;top:55%;animation-delay:3s;"></span>
+  </div>
+
+  <!-- Snow -->
+  <div class="snow" id="snow"></div>
+
+  <h1>Merry Christmas 🎄</h1>
+  <p class="lead">Click the gift below to open your heartfelt message 🎁</p>
+
+  <div class="gift-box" id="gift">
+    <div class="gift-lid"></div>
+    <div class="gift-ribbon-vertical"></div>
+    <div class="gift-ribbon-horizontal"></div>
+  </div>
+
+  <!-- Message -->
+  <div class="message" id="message">
+    <h2>Merry Christmas, my friend 🎅</h2>
+    <p>
+    Today isn’t just another date on the calendar it’s a day filled with warmth, love, and a gentle reminder that even in the quiet moments, you are cared for, thought of, and appreciated more than you might realize.<br><br>
+
+      I hope as you wake up this Christmas morning, the air feels a little softer, the light through your window feels a little warmer, and your heart feels at peace. You’ve come a long way this year. There might have been moments where you felt lost, tired, or unsure. Times where things didn’t go how you hoped. But look at you now still standing, still trying, still showing up. That’s strength. That’s courage. That’s something worth celebrating.<br><br>
+
+      If I could, I’d send you a little note every morning that says:<br>
+      <em>"Good morning, Bro. You’re doing great. Don’t forget to smile today."</em><br>
+      And every night, a quiet reminder:<br>
+      <em>“You did your best today. That’s enough. Rest easy.”</em><br><br>
+
+      Because even though Christmas comes once a year, the kindness it carries should last long after the decorations are packed away. You’ve grown this year in ways you might not even notice. The strength it took to get through the hard days? That’s growth. The patience it took to wait for better ones? That’s hope. The way you kept believing, even in small ways? That’s faith.<br><br>
+
+      You’ve been strong all year. But strength doesn’t always mean being tough sometimes it means being gentle with yourself, allowing rest, forgiving your own mistakes, and giving yourself permission to start fresh.<br><br>
+
+      And tomorrow morning, when the sun rises again, I hope you greet it with gratitude because the world is better with you in it.<br><br>
+
+      <strong>You’re doing great. You’ve done great. And the best is still ahead.</strong>
+    </p>
+  </div>
+
+  <script>
+    const snowContainer = document.getElementById('snow');
+    const gift = document.getElementById('gift');
+    const message = document.getElementById('message');
+
+    function rand(min,max){return Math.random()*(max-min)+min;}
+
+    function createSnow(){
+      for(let i=0;i<70;i++){
+        const dot=document.createElement('i');
+        const size=rand(2,8);
+        dot.style.left=rand(0,100)+'%';
+        dot.style.width=size+'px';
+        dot.style.height=size+'px';
+        dot.style.opacity=rand(0.4,1);
+        dot.style.animationDuration=rand(8,18)+'s';
+        dot.style.animationDelay=rand(0,10)+'s';
+        snowContainer.appendChild(dot);
+      }
+    }
+    createSnow();
+
+    gift.addEventListener('click',()=>{
+      gift.classList.toggle('open');
+      message.classList.toggle('show');
+    });
+  </script>
+</body>
+</html>
